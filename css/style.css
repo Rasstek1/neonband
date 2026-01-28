@@ -742,4 +742,17 @@ height: clamp(220px, 26vw, 360px);
     padding: .35rem .6rem;
     font-size: .9rem;
   }
+    /* Monte les pills */
+  .hero-pills{
+    margin-top: -35px;   /* ajuste: -8 / -12 / -20 */
+    margin-bottom: 10px; /* garde un peu d'air */
+  }
+    .retro-skull{
+    top: 10%;  /* descend le skull. Ajuste: 8% à 14% */
+  }
+
+    .hero-below-title{
+    transform: translateY(30px); /* ajuste: -20 / -40 */
+  }
 }
+
