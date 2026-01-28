@@ -32,12 +32,12 @@
     .neon{
       text-shadow:
         0 0 8px rgba(255,43,214,0.55),
-        0 0 18px rgba(255,43,214,0.35);
+        0 0 18px rgba(255,43,214,0.9);
     }
     .neon-cyan{
       text-shadow:
         0 0 8px rgba(20,246,255,0.55),
-        0 0 18px rgba(20,246,255,0.35);
+        0 0 18px rgba(20,246,255,0.9);
     }
 
     /* Navbar glass */
@@ -53,13 +53,9 @@
       color: #fff;
       text-shadow: 0 0 10px rgba(20,246,255,0.45);
     }
-    /* Force l'icône hamburger visible sur navbar custom */
-    .navbar-toggler{
-      border-color: rgba(255,255,255,0.25) !important;
-    }
-    .navbar-toggler-icon{
-      filter: invert(1);
-    }
+ 
+ 
+
 /* Toggler custom (hamburger -> X) */
 .neo-toggler {
   border: 1px solid rgba(255,255,255,.25);
@@ -107,7 +103,17 @@
   opacity:0;
 }
 
+.neo-toggler-icon,
+.neo-toggler-icon::before,
+.neo-toggler-icon::after,
+.neo-toggler-icon span{
+  pointer-events: none; /* IMPORTANT: le clic reste sur le button */
+}
+#topNav { z-index: 9999; }
+#topNav .navbar-toggler { position: relative; z-index: 10000; }
 
+
+/******************************************* BURGER END****************************************/
     /* Hero */
     .hero{
       position: relative;
@@ -709,3 +715,31 @@ height: clamp(220px, 26vw, 360px);
       html { scroll-behavior: auto; }
       .neo-card, .btn-neon { transition: none; }
     }
+/* ==========================
+   HERO - Ajustements mobile
+   ========================== */
+@media (max-width: 576px){
+
+  /* Option A (simple) : on descend tout le contenu du hero */
+  .hero-content{
+    transform: translateY(40px);
+  }
+
+  /* Si tu avais déjà un translateY sur desktop,
+     remplace le transform ci-haut par ça à la place :
+     margin-top: 40px;
+  */
+
+  /* Ajuste le titre (un peu plus petit + plus bas) */
+  .hero-title{
+    margin-top: 10px;
+    font-size: clamp(2.2rem, 9vw, 3.2rem);
+    line-height: 1.05;
+  }
+
+  /* Les badges un peu plus compacts pour sauver de la hauteur */
+  .badge-neo{
+    padding: .35rem .6rem;
+    font-size: .9rem;
+  }
+}
