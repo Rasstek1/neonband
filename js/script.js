@@ -51,4 +51,22 @@ contactForm.addEventListener("submit", (e) => {
   }, 650);
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  const navMain = document.getElementById("navMain");
+  if (!navMain) return;
+
+  // Bootstrap doit exister pour que collapse marche
+  if (!window.bootstrap?.Collapse) return;
+
+  const bsCollapse = bootstrap.Collapse.getOrCreateInstance(navMain, { toggle: false });
+
+  // Ferme au clic sur un lien (sur mobile)
+  navMain.querySelectorAll("a.nav-link").forEach(link => {
+    link.addEventListener("click", () => {
+      if (window.getComputedStyle(document.querySelector(".navbar-toggler")).display !== "none") {
+        bsCollapse.hide();
+      }
+    });
+  });
+});
 

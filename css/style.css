@@ -60,6 +60,52 @@
     .navbar-toggler-icon{
       filter: invert(1);
     }
+/* Toggler custom (hamburger -> X) */
+.neo-toggler {
+  border: 1px solid rgba(255,255,255,.25);
+  padding: .55rem .65rem;
+  border-radius: .75rem;
+}
+
+.neo-toggler:focus {
+  box-shadow: 0 0 0 .2rem rgba(255,43,214,.25);
+}
+
+.neo-toggler-icon{
+  position: relative;
+  display: block;
+  width: 26px;
+  height: 18px;
+}
+
+.neo-toggler-icon::before,
+.neo-toggler-icon::after,
+.neo-toggler-icon span{
+  content:"";
+  position:absolute;
+  left:0; right:0;
+  height:2px;
+  background: rgba(255,255,255,.9);
+  border-radius: 2px;
+  transition: transform .2s ease, top .2s ease, opacity .2s ease;
+}
+
+.neo-toggler-icon::before{ top:0; }
+.neo-toggler-icon::after{ top:16px; }
+.neo-toggler-icon span{ top:8px; }
+
+/* Quand le menu est ouvert, Bootstrap met .collapsed = retiré du button */
+.neo-toggler:not(.collapsed) .neo-toggler-icon::before{
+  top:8px;
+  transform: rotate(45deg);
+}
+.neo-toggler:not(.collapsed) .neo-toggler-icon::after{
+  top:8px;
+  transform: rotate(-45deg);
+}
+.neo-toggler:not(.collapsed) .neo-toggler-icon span{
+  opacity:0;
+}
 
 
     /* Hero */
@@ -78,7 +124,7 @@
 .hero::before{
   content:"";
   position:absolute; inset:0;
-  background: url("..assets/img/hero.jpg") center/cover no-repeat;
+  background: url("../assets/img/hero.jpg") center/cover no-repeat;
   opacity: 1;
   pointer-events:none;
 
@@ -188,7 +234,7 @@
  width: clamp(220px, 26vw, 360px);
 height: clamp(220px, 26vw, 360px);
 
-  background: url("..assets/img/skull.png") center/contain no-repeat;
+  background: url("../assets/img/skull.png") center/contain no-repeat;
   z-index: 3;
 }
 
@@ -437,6 +483,23 @@ height: clamp(220px, 26vw, 360px);
     .show-cta{
       white-space: nowrap;
     }
+
+/*****Band images*************/
+    .neo-thumb{
+  aspect-ratio: 1 / 1; /* carré */
+}
+
+.neo-thumb > img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/**********************************/
+
+
 
     /* Footer */
     footer{
