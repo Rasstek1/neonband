@@ -57,7 +57,7 @@ section {
 
 .neon {
   text-shadow:
-    0 0 8px rgba(255, 43, 214, 0.55),
+    0 0 8px rgba(255, 43, 214, 0.95),
     0 0 18px rgba(255, 43, 214, 0.9);
 }
 
@@ -166,155 +166,347 @@ section {
 /*------------------------------------------------------------------------------------------------------------------*/
 
 /****************************************************BURGER'S END****************************************************/
+/* =====================================================================
+   HERO — NEON PARADISE (stable desktop + responsive clean)
+   1) TOKENS (design)
+   2) STRUCTURE (layout)
+   3) UI SKIN (pills/boutons/boxes)
+   4) EFFECTS (halo/reflection)
+   5) RESPONSIVE (tablette/mobile)
+===================================================================== */
 
-/* =========================================
-   HERO — 4 blocs indépendants (AUCUNE variable)
-   Ordre : skull -> pills -> title -> below
-========================================= */
-/* -------------------------
-   CONTENEUR GLOBAL 
-------------------------- */
 
-.hero {
+/* =====================================================================
+   1) TOKENS — change ça pour ajuster le look rapidement
+===================================================================== */
+
+:root{
+  /* Text */
+  --text: rgba(255,255,255,.92);
+  --muted: rgba(255,255,255,.72);
+
+  /* Glass surfaces */
+  --surface: rgba(255,255,255,.08);
+  --surface-strong: rgba(255,255,255,.12);
+  --stroke: rgba(255,255,255,.18);
+
+  /* Neon glow */
+  --neon-pink: rgba(255, 43, 214, 1);
+  --neon-glow: rgba(255, 43, 214, .35);
+  --neon-glow-soft: rgba(20, 246, 255, .12);
+
+  /* Images */
+  --hero-bg: url("../assets/img/hero.jpg");
+  --skull-img: url("../assets/img/skull.png");
+
+    /* TITLE */
+    --title-size: clamp(2.4rem, 8vw, 8rem);
+   --title-bottom: 7rem;
+
+    --refl-gap: 60px; /* augmente */
+
+  /* Sizing */
+  --hero-min-h: 100svh;
+  --content-max: 1100px;
+  --below-max: 800px;
+
+  /* Skull (fluid) */
+ --skull-size: clamp(280px, 32vh, 520px);
+  --skull-top: clamp(18px, 6vh, 90px);
+
+  /* Desktop offsets (RESTORE like before) */
+  --desktop-content-top: 100px;
+
+  /* Spacing */
+
+  --title-size: clamp(2.5rem, 6vw, 5.5rem);
+  --title-bottom: 5rem;
+
+  --sub-size: clamp(1rem, 1.4vw, 1.15rem);
+  --sub-max: 720px;
+  --sub-bottom: 22px;
+
+  --actions-top: 18px;
+
+  /* Background mask */
+  --bg-mask-stop: 70%;
+
+  /* Halo */
+  --halo-a: rgba(255, 0, 200, 0.35);
+  --halo-b: rgba(255, 0, 200, 0.15);
+  --halo-c: rgba(255, 0, 200, 0.05);
+  --halo-blur: 60px;
+}
+
+
+/* =====================================================================
+   2) STRUCTURE — layout (desktop identical to your original)
+===================================================================== */
+
+.hero{
   position: relative;
-  min-height: 100vh;
+  min-height: var(--hero-min-h);
+  overflow: hidden;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* On centre le bloc hero-content verticalement dans l'écran */
+
+  /* IMPORTANT: restore your desktop behavior */
   justify-content: center;
-  overflow: hidden;
+
   padding: 2rem 0;
 }
 
-/* Background image */
-.hero::before {
+/* Background */
+.hero::before{
   content: "";
   position: absolute;
   inset: 0;
-  background: url("../assets/img/hero.jpg") center/cover no-repeat;
+  background: var(--hero-bg) center/cover no-repeat;
   z-index: 0;
   pointer-events: none;
 
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 var(--bg-mask-stop), transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 var(--bg-mask-stop), transparent 100%);
 }
 
-/* -------------------------
-   1) SKULL (bloc 1) - On le sort du flux pour qu'il soit léger
-------------------------- */
-.retro-skull {
+/**********************************************
+
+**********SUNSET demi-cercle synthwave *******/
+.hero::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:50%; /* 👈 ajuste pour coller sur ta ligne rose */
+  transform:translateX(-50%);
+
+  width:900px;
+  height:450px; /* demi cercle */
+
+  background: radial-gradient(circle at 50% 100%,
+    rgba(255, 43, 214, 0.85) 0%,
+    rgba(255, 43, 214, 0.45) 25%,
+    rgba(255, 43, 214, 0.18) 50%,
+    rgba(255, 43, 214, 0.06) 65%,
+    transparent 70%
+  );
+
+  /* coupe en demi-cercle */
+  border-radius: 1000px 1000px 0 0;
+  overflow:hidden;
+
+  filter: blur(8px);
+  opacity: .95;
+  z-index: 2;
+  pointer-events:none;
+
+  animation: sunPulse 3s ease-in-out infinite;
+}
+
+/* animation breathing – synthwave intense */
+@keyframes sunPulse{
+  0%{
+    transform: translateX(-50%) scale(0.85);
+    opacity: .15;
+    filter: blur(12px);
+  }
+
+  40%{
+    transform: translateX(-50%) scale(1.05);
+    opacity: .9;
+    filter: blur(22px);
+  }
+
+  100%{
+    transform: translateX(-50%) scale(1.25);
+    opacity: 0;
+    filter: blur(60px);
+  }
+}
+
+
+/* Skull (decor) */
+.retro-skull{
   position: absolute;
-  /* On le place par rapport au haut de l'écran */
-  top: 6vh;
   left: 50%;
+  top: var(--skull-top);
   transform: translateX(-50%);
-  width: clamp(200px, 28vh, 380px);
-  height: clamp(200px, 28vh, 380px);
-  background: url("../assets/img/skull.png") center/contain no-repeat;
+
+  width: var(--skull-size);
+  height: var(--skull-size);
+
+  background: var(--skull-img) center/contain no-repeat;
   z-index: 5;
   pointer-events: none;
 }
 
-/* -------------------------
-   CONTENEUR DE CONTENU (Nouveau flux)
-------------------------- */
-.hero-content {
+/* Content container */
+.hero-content{
+  width: 100%;
+  max-width: var(--content-max);
+  padding: 0 16px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0;
-  /* On gère les espaces manuellement plus bas */
-  width: 100%;
-  max-width: 1100px;
+
   z-index: 10;
-  margin-top: 100px;
-  /* Pour laisser de la place au skull */
+
+  /* restore your original desktop offset */
+  margin-top: var(--desktop-content-top);
 }
 
-
-/* -------------------------
-   2) PILLS (bloc 2) - Plus d'absolute !
-------------------------- */
-.hero-pills {
+/* Pills 
+.hero-pills{
   position: relative;
   display: flex;
   justify-content: center;
-  gap: .5rem;
+  gap: var(--pills-gap);
   flex-wrap: wrap;
-  margin-bottom: 2rem;
-  /* Espace avant la ligne néon */
-  z-index: 11;
-}
 
-/* -------------------------
-   3) TITLE + REFLECTION (bloc 3)
-------------------------- */
-.hero-title {
+  margin-bottom: var(--pills-bottom);
+  z-index: 11;
+}*/
+
+/* Title */
+.hero-title{
   position: relative;
-  margin: 0 0 5rem 0;
-  /* Marge du bas généreuse pour la réflexion */
-  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  margin: 0 0 var(--title-bottom) 0;
+  font-size: var(--title-size);
   line-height: 1.05;
   text-align: center;
   z-index: 11;
+    letter-spacing: 0.08em;
+  text-shadow:
+    0 0 10px rgba(255,43,214,.7),
+    0 0 25px rgba(255,43,214,.4),
+    0 0 50px rgba(20,246,255,.15);
 }
 
-/* -------------------------
-   4) BELOW TITLE (bloc 4)
-------------------------- */
-.hero-below-title {
+/* Below title */
+.hero-below-title{
   position: relative;
   width: 100%;
-  max-width: 800px;
+  max-width: var(--below-max);
   margin: 0 auto;
   text-align: center;
   z-index: 11;
+  transform: translateY(100px);
 }
 
-/* halo (inchangé) */
-.retro-skull::before {
+/* Sub text */
+.hero-sub{
+  color: var(--muted);
+  font-size: var(--sub-size);
+  max-width: var(--sub-max);
+  margin: 0 auto var(--sub-bottom) auto;
+}
+
+/* Actions */
+.hero-actions{
+  margin-top: var(--actions-top);
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+
+/* =====================================================================
+   3) UI SKIN — neon glass for pills/buttons/boxes
+===================================================================== */
+
+/* Pills look (your .badge-neo or any pill class) */
+.badge-neo{
+  background: var(--surface);
+  border: 1px solid var(--stroke);
+  color: var(--text);
+  border-radius: 999px;
+  padding: .38rem .75rem;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,.10),
+    0 0 14px rgba(255, 43, 214, .18);
+}
+
+/* Buttons (works for .btn) */
+.hero .btn{
+  background: var(--surface);
+  border: 1px solid var(--stroke);
+  color: var(--text);
+
+  border-radius: 14px;
+  padding: 12px 16px;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,.10),
+    0 0 22px var(--neon-glow);
+  transition: transform .12s ease, background .12s ease, box-shadow .12s ease;
+}
+
+.hero .btn:hover{
+  background: var(--surface-strong);
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,.10),
+    0 0 30px rgba(255, 43, 214, .42),
+    0 0 18px var(--neon-glow-soft);
+  transform: translateY(-1px);
+}
+
+.hero .btn:active{
+  transform: translateY(0);
+}
+
+/* Optional: equal widths when wrapping */
+.hero-actions .btn{
+  min-width: 190px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* =====================================================================
+   4) EFFECTS — halo + reflection (unchanged)
+===================================================================== */
+
+/* Skull halo */
+.retro-skull::before{
   content: "";
   position: absolute;
   inset: -50%;
   background: radial-gradient(circle,
-      rgba(255, 0, 200, 0.35) 0%,
-      rgba(255, 0, 200, 0.15) 25%,
-      rgba(255, 0, 200, 0.05) 45%,
-      transparent 70%);
-  filter: blur(60px);
+    var(--halo-a) 0%,
+    var(--halo-b) 25%,
+    var(--halo-c) 45%,
+    transparent 70%);
+  filter: blur(var(--halo-blur));
   z-index: -1;
   animation: skullPulse 6s ease-in-out infinite;
 }
 
-@keyframes skullPulse {
-
-  0%,
-  100% {
-    opacity: .4;
-    transform: scale(1);
-  }
-
-  40% {
-    opacity: 1;
-    transform: scale(1.12);
-  }
-
-  60% {
-    opacity: .7;
-    transform: scale(1.05);
-  }
+@keyframes skullPulse{
+  0%,100%{ opacity: .4; transform: scale(1); }
+  40%{ opacity: 1; transform: scale(1.12); }
+  60%{ opacity: .7; transform: scale(1.05); }
 }
 
-
-
-/* texte reflection (ton code inchangé) */
-.hero-title__text {
+/* Reflection (your existing vars used) */
+.hero-title__text{
   position: relative;
   display: inline-block;
 }
 
-.hero-title__text::after {
+.hero-title__text::after{
   content: attr(data-text);
   position: absolute;
   left: 0;
@@ -322,8 +514,7 @@ section {
   top: calc(100% + var(--refl-gap));
 
   transform-origin: top center;
-  transform:
-    perspective(var(--refl-persp)) rotateX(var(--refl-rot)) scaleY(var(--refl-sy)) scaleX(var(--refl-sx));
+  transform: perspective(var(--refl-persp)) rotateX(var(--refl-rot)) scaleY(var(--refl-sy)) scaleX(var(--refl-sx));
 
   opacity: var(--refl-opacity);
   filter: blur(var(--refl-blur));
@@ -336,106 +527,51 @@ section {
     0 0 34px rgba(20, 246, 255, 0.12);
 
   -webkit-mask-image: linear-gradient(to bottom,
-      rgba(0, 0, 0, 0.85),
-      rgba(0, 0, 0, 0.55) 45%,
-      transparent 92%);
+    rgba(0, 0, 0, 0.85),
+    rgba(0, 0, 0, 0.55) 45%,
+    transparent 92%);
   mask-image: linear-gradient(to bottom,
-      rgba(0, 0, 0, 0.85),
-      rgba(0, 0, 0, 0.55) 45%,
-      transparent 92%);
+    rgba(0, 0, 0, 0.85),
+    rgba(0, 0, 0, 0.55) 45%,
+    transparent 92%);
 }
 
 
+/* =====================================================================
+   5) RESPONSIVE — only 2 breakpoints, stable in manual resize
+===================================================================== 
 
-/* texte/boutons (tes styles existants) */
-.hero-sub {
-  color: var(--muted);
-  font-size: clamp(1rem, 1.4vw, 1.15rem);
-  max-width: 720px;
-  margin: 0 auto 22px auto;
-}
-
-.hero-actions {
-  margin-top: 18px;
-}
-
-
-
-.horizon::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 999px;
-  background: linear-gradient(90deg,
-      transparent,
-      rgba(255, 43, 214, 0.95),
-      rgba(255, 43, 214, 1),
-      rgba(255, 43, 214, 0.95),
-      transparent);
-  opacity: .85;
-  box-shadow:
-    0 0 10px rgba(255, 43, 214, 0.35),
-    0 0 22px rgba(255, 43, 214, 0.25),
-    0 0 16px rgba(20, 246, 255, 0.10);
-  animation: horizonBreath 2.1s ease-in-out infinite;
-}
-
-.horizon::after {
-  content: "";
-  position: absolute;
-  inset: -10px 0;
-  border-radius: 999px;
-  background: linear-gradient(90deg,
-      transparent,
-      rgba(255, 255, 255, 0.10),
-      rgba(255, 43, 214, 0.12),
-      transparent);
-  opacity: 0;
-  mix-blend-mode: screen;
-  animation: horizonFlicker 6s steps(2, end) infinite;
-}
-
-@keyframes horizonBreath {
-
-  0%,
-  100% {
-    transform: scaleY(0.85);
-    opacity: 0.65;
-    filter: blur(0px);
+/* Tablet and down: less vertical waste + smaller skull */
+@media (max-width: 991.98px){
+  :root{
+    --skull-size: clamp(220px, 26vh, 340px);
+    --desktop-content-top: clamp(140px, 18vh, 260px); /* replaces fixed 100px */
+    --title-bottom: clamp(2.2rem, 5vh, 3.6rem);
+    --pills-bottom: clamp(14px, 2.8vh, 26px);
   }
 
-  50% {
-    transform: translateY(-0.5px) scaleY(1.55);
-    opacity: 1;
-    filter: blur(0.35px);
+  .hero{
+    /* centering starts to cause chaos on short heights; stabilize */
+    justify-content: flex-start;
+    padding-top: clamp(24px, 6vh, 60px);
+    padding-bottom: clamp(24px, 6vh, 60px);
   }
 }
 
-@keyframes horizonFlicker {
 
-  0%,
-  86%,
-  100% {
-    opacity: 0;
-  }
 
-  87% {
-    opacity: .25;
-  }
 
-  88% {
-    opacity: 0;
-  }
+/* =====================================================================
+   (Optional) HEADER safety — keeps it above hero layers
+   Change selector to match your header class if needed.
+===================================================================== */
 
-  93% {
-    opacity: .18;
-  }
-
-  94% {
-    opacity: 0;
-  }
+/*
+.site-header, header, .navbar{
+  position: relative;
+  z-index: 9999;
 }
-
+*
 
 
 /****************************************************HEADER'S END****************************************************/
@@ -473,6 +609,16 @@ section {
   background: linear-gradient(90deg, rgba(255, 43, 214, 0.28), rgba(20, 246, 255, 0.18));
 }
 
+/* Force les boutons en blanc */
+.btn {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: transparent;
+  --bs-btn-border-color: rgba(255,255,255,.4);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: rgba(255,43,214,.15);
+  --bs-btn-hover-border-color: rgba(255,43,214,.8);
+  backdrop-filter: blur(6px);
+}
 
 
 
@@ -826,73 +972,79 @@ header[id] {
   }
 }
 
+
 /* ==========================
-   HERO - Ajustements mobile
+   RESPONSIVE (clean)
    ========================== */
-@media (max-width: 768px) {
 
-  .hero {
-    /* On s'assure que le container utilise bien toute la hauteur */
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    /* On change 'flex-start' pour 'center' ou on ajoute un padding */
-    justify-content: center;
-    padding-top: 50px;
+/* Desktop */
+@media (min-width: 992px){
+  :root{
+    --desktop-content-top: 100px;
   }
 
-  .retro-skull {
-    top: 50px;
-    /* Descendu un peu aussi */
-    width: 240px;
-    /* Plus gros (était à 180px) */
-    height: 240px;
-  }
-
-  .hero-content {
-    margin-top: 240px;
-    /* Augmenté pour tout descendre */
-    padding: 0 15px;
-    width: 100%;
-    align-items: center;
-    /* Force le centrage horizontal de tout ce qui est dedans */
-  }
-
-  .hero-title {
-    /* On réduit la taille pour pas que ça prenne trop de place verticale */
-    font-size: 2rem;
-    margin-bottom: 3.5rem;
-    /* Espace pour la réflexion */
-  }
-
-  /* 4. On descend aussi un peu le titre du Below */
-  .hero-below-title {
-    margin-top: 50px;
-  }
-
-  .hero-actions {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* Centre les boutons horizontalement */
-    justify-content: center;
-    width: 100%;
+  .hero-actions{
+    flex-direction: row;
     gap: 12px;
-    margin-left: auto;
-    margin-right: auto;
+  }
+}
+
+/* Mobile */
+@media (max-width: 575.98px){
+  :root{
+    --skull-size: 240px;
+    --skull-top: 50px;
+
+    /* ✅ LE réglage principal pour "descendre" le pack sur mobile */
+    --mobile-content-top: clamp(240px, 40vh, 420px);
+
+    --title-size: 2rem;
+    --title-bottom: 2.2rem;
+
+    --actions-top: 12px;
   }
 
-  .hero-actions .btn {
-    width: 85%;
-    /* Largeur presque totale pour faciliter le clic, bien centrée */
-    max-width: 300px;
-    /* Évite qu'ils soient trop longs sur tablette */
+  /* Skull */
+  .retro-skull{
+    width: var(--skull-size);
+    height: var(--skull-size);
+    top: var(--skull-top);
   }
 
-  /* Les badges un peu plus compacts pour sauver de la hauteur */
-  .badge-neo {
-    padding: .35rem .6rem;
-    font-size: .9rem;
+  /* ✅ On remplace le margin-top desktop par la version mobile */
+  .hero-content{
+    margin-top: var(--mobile-content-top);
   }
 
+  /* Boutons en colonne sur mobile */
+  .hero-actions{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-top: var(--actions-top);
+  }
+
+  .hero-actions .btn{
+    width: min(320px, 88%);
+    min-height: 44px;
+    text-align: center;
+  }
+
+  /* Optionnel: un peu d’air si tu as la ligne en bas (mt-4...) */
+  .hero-below-title .mt-4.text-muted-neo.small{
+    margin-top: 2.2rem !important;
+  }
+}
+@media (max-width: 575.98px){
+  .hero-below-title{
+    transform: translateY(-2px);
+  }
+
+  .hero-actions{
+    transform: translateY(-2px);
+  }
+   :root{
+    --refl-gap: 25px; /* rapproche le reflet (essaie 0px, 4px, 8px) */
+  }
 }
