@@ -303,7 +303,7 @@ header[id] {
   inset: 0;
   z-index: 2;
   pointer-events: none;
-
+ mix-blend-mode: normal;
   /* TUNING */
   --horizon: 66%;                         /* aligns with your pink horizon */
   --aurora-shift: calc(-40vh - 40px);     /* moves the whole aurora up/down */
@@ -399,7 +399,7 @@ header[id] {
     transparent 100%
   );
 
-  filter: blur(18px) saturate(1.65);
+  filter: blur(12px) saturate(1.5);
   opacity: .78;
 
   /* IMPORTANT: use animation that does NOT override the container offset */
