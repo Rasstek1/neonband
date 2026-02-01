@@ -433,8 +433,7 @@ header[id] {
 
 
 /* =====================================================================
-   HERO STARS — sky-only + de-tiled multi-layer + uneven twinkle
-   Requires: <div class="hero-stars"></div> inside .hero
+   HERO STARS — sky-
 ===================================================================== */
 
 .hero-stars{
@@ -445,20 +444,20 @@ header[id] {
 
   /* Layer C — static background stars (no animation) */
   background:
-    radial-gradient(1px 1px at 6% 12%,  rgba(255,255,255,.45), transparent 60%),
-    radial-gradient(1px 1px at 18% 8%,  rgba(255,255,255,.28), transparent 60%),
-    radial-gradient(1px 1px at 32% 15%, rgba(255,255,255,.50), transparent 60%),
+    radial-gradient(1px 1px at 6% 12%,  rgba(255,255,255,.80), transparent 60%),
+    radial-gradient(1px 1px at 18% 8%,  rgba(255,255,255,.80), transparent 60%),
+    radial-gradient(1px 1px at 32% 15%, rgba(255,255,255,.80), transparent 60%),
     radial-gradient(1px 1px at 47% 9%,  rgba(255,255,255,.80), transparent 60%),
     radial-gradient(1px 1px at 61% 14%, rgba(255,255,255,.80), transparent 60%),
-    radial-gradient(1px 1px at 74% 10%, rgba(255,255,255,.31), transparent 60%),
-    radial-gradient(1px 1px at 89% 16%, rgba(255,255,255,.45), transparent 60%),
+    radial-gradient(1px 1px at 74% 10%, rgba(255,255,255,.80), transparent 60%),
+    radial-gradient(1px 1px at 89% 16%, rgba(255,255,255,.80), transparent 60%),
 
     radial-gradient(1px 1px at 11% 28%, rgba(255,255,255,.80), transparent 60%),
-    radial-gradient(1px 1px at 26% 33%, rgba(255,255,255,.55), transparent 60%),
-    radial-gradient(1px 1px at 41% 29%, rgba(255,255,255,.25), transparent 60%),
-    radial-gradient(1px 1px at 58% 31%, rgba(255,255,255,.55), transparent 60%),
+    radial-gradient(1px 1px at 26% 33%, rgba(255,255,255,.80), transparent 60%),
+    radial-gradient(1px 1px at 41% 29%, rgba(255,255,255,.80), transparent 60%),
+    radial-gradient(1px 1px at 58% 31%, rgba(255,255,255,.80), transparent 60%),
     radial-gradient(1px 1px at 72% 27%, rgba(255,255,255,.90), transparent 60%),
-    radial-gradient(1px 1px at 88% 34%, rgba(255,255,255,.32), transparent 60%);
+    radial-gradient(1px 1px at 88% 34%, rgba(255,255,255,.80), transparent 60%);
 
   background-repeat: repeat;
   background-size: 980px 520px;
@@ -491,11 +490,11 @@ header[id] {
     radial-gradient(1.4px 1.4px at 46% 24%, rgba(255,255,255,.95), transparent 60%),
     radial-gradient(1px 1px at 62% 39%,   rgba(255,255,255,.78),  transparent 60%),
     radial-gradient(1.3px 1.3px at 79% 21%, rgba(255,255,255,.92), transparent 60%),
-    radial-gradient(1px 1px at 88% 49%,   rgba(255,255,255,.75),  transparent 60%),
-    radial-gradient(1px 1px at 7%  55%,   rgba(255,255,255,.70),  transparent 60%),
+    radial-gradient(1px 1px at 88% 49%,   rgba(255,255,255,.90),  transparent 60%),
+    radial-gradient(1px 1px at 7%  55%,   rgba(255,255,255,.90),  transparent 60%),
     radial-gradient(1.2px 1.2px at 53% 57%, rgba(255,255,255,.80), transparent 60%),
-    radial-gradient(1px 1px at 92% 13%,   rgba(255,255,255,.72),  transparent 60%),
-    radial-gradient(1px 1px at 35% 12%,   rgba(255,255,255,.62),  transparent 60%);
+    radial-gradient(1px 1px at 92% 13%,   rgba(255,255,255,.90),  transparent 60%),
+    radial-gradient(1px 1px at 35% 12%,   rgba(255,255,255,.90),  transparent 60%);
 
   background-repeat: repeat;
   background-size: 357px 241px;
@@ -516,7 +515,7 @@ header[id] {
     radial-gradient(1.6px 1.6px at 36% 18%, rgba(255,255,255,.75), transparent 60%),
     radial-gradient(2px 2px at 57% 44%,   rgba(255,255,255,.70),   transparent 60%),
     radial-gradient(1.6px 1.6px at 74% 34%, rgba(255,255,255,.70), transparent 60%),
-    radial-gradient(2px 2px at 91% 20%,   rgba(255,255,255,.9),   transparent 60%);
+    radial-gradient(2px 2px at 91% 20%,   rgba(255,255,255,.90),   transparent 60%);
 
   background-repeat: repeat;
   background-size: 521px 389px;
@@ -772,7 +771,7 @@ header[id] {
   45%{
     filter: brightness(1.02) contrast(1.10) saturate(1.05)
             drop-shadow(0 0 18px rgba(0,0,0,0.38));
-    transform: translateX(-50%) scale(1.015);
+    transform: translateX(-50%) scale(1.050);
   }
 }
 
@@ -1223,7 +1222,7 @@ footer {
 
   .hero-content {
     margin-top: var(--mobile-content-top);
-   
+    }
 
   .hero-below-title {
     transform: translateY(-2px);
@@ -1249,86 +1248,98 @@ footer {
   }
 }
 
-/* Mobile landscape */
-@media (max-width: 991.98px) and (orientation: landscape) and (max-height: 520px) {
-  .hero {
-    padding: 0.75rem 0;
+/* =====================================================================
+   HERO — MOBILE LANDSCAPE (TUNED)
+===================================================================== */
+@media (max-width: 991.98px) and (orientation: landscape){
+
+  /* Quick tuning knobs */
+  .hero{
+    --skull-y: 50px;   /* + = skull lower */
+    --title-y: 40px;  /* - = title higher */
+    --below-y: 80px;   /* + = text+buttons lower */
+  }
+
+  /* DEBUG (optional) */
+  /* .hero{ outline: 6px solid lime !important; } */
+
+  .hero{
     min-height: 100svh;
-  }
-
-  .hero-content {
-    margin-top: 10px;
-  }
-
-  .hero-bottom {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    padding: 0.5rem 0;
     justify-content: flex-start;
-    row-gap: 4px;
   }
 
-  .retro-skull {
+  .hero-content{
+    margin-top: 0 !important;
+    padding-top: 10px;
+  }
+
+  /* Skull: smaller + lower */
+  .retro-skull{
     position: relative;
     left: auto;
-    top: 7vh;
-    transform: none;
+    top: 0 !important;
+    transform: translateY(var(--skull-y)) !important;
 
-    width: clamp(130px, 22vh, 200px);
-    height: clamp(130px, 22vh, 200px);
+    width: clamp(72px, 14vw, 120px);
+    height: clamp(72px, 14vw, 120px);
 
-    margin: 8px 0 0;
+    margin: 0;
     z-index: 5;
   }
 
-  .hero-title {
+  /* Title: higher */
+  .hero-title{
+    position: relative;
+    top: 0;
+    transform: translateY(var(--title-y));
+    margin: 6px 0 0 !important;
+
     text-align: center;
-    font-size: clamp(1.7rem, 6.2vw, 2.4rem);
+    font-size: clamp(1.55rem, 5.6vw, 2.15rem);
     line-height: 1.02;
-    margin: 18px 0 0;
   }
 
-  .hero-title__text::after {
-    display: none;
-  }
-
-  .hero-below-title {
-    margin-top: 8px;
+ 
+  /* Below block: lower (this moves both small text + buttons together) */
+  .hero-below-title{
+    transform: translateY(var(--below-y)) !important;
+    margin-top: 0 !important;
     text-align: center;
-    transform: translateY(-2px);
   }
 
-  .hero-sub {
-    font-size: 0.95rem;
-    margin-bottom: 6px;
+  .hero-sub{
+    font-size: 0.92rem;
+    margin: 0 auto 6px auto;
+    max-width: 92%;
   }
 
-  .hero-actions {
-    display: flex;
+  /* Buttons: slightly lower + keep visible */
+  .hero-actions{
+    display: flex !important;
+    flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
     gap: 8px;
-    margin-top: 0px;
+
+    margin-top: 10px !important;
+    transform: none !important;
   }
 
-  .hero-actions .btn {
-    width: auto;
-    padding: 10px 14px;
-    font-size: 0.95rem;
+  .hero-actions .btn{
+    width: auto !important;
+    min-width: 0 !important;
+    padding: 9px 12px;
+    font-size: 0.92rem;
   }
+   /* Title reflection — landscape tuned */
+  .hero-title__text::after{
+    display: block !important;
+
+    top: calc(100% + 18px); /* reflection closer */
+    opacity: 0.28;
+    filter: blur(0.8px);
+
+
 }
-
-
-/* =====================================================================================
-   12) FOOTNOTE
-   Header safety rule placeholder
-===================================================================================== */
-
-/*
-.site-header,
-header,
-.navbar {
-  position: relative;
-  z-index: 9999;
 }
-*/

@@ -1,20 +1,28 @@
+// ---------------------------------------------------------------------
+// Set current year in footer
+// ---------------------------------------------------------------------
+document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Set year
-    document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Close mobile nav when clicking a link
-    document.querySelectorAll(".navbar .nav-link").forEach(a => {
-      a.addEventListener("click", () => {
-        const nav = document.getElementById("navMain");
-        if (nav.classList.contains("show")) {
-          const bsCollapse = bootstrap.Collapse.getOrCreateInstance(nav);
-          bsCollapse.hide();
-        }
-      });
-    });
+// ---------------------------------------------------------------------
+// Close mobile navigation when clicking a nav link
+// ---------------------------------------------------------------------
+document.querySelectorAll(".navbar .nav-link").forEach(link => {
+  link.addEventListener("click", () => {
+    const nav = document.getElementById("navMain");
 
-    //submit
-// Neon fake submit (frontend only)
+    // Only close if the navbar is currently expanded
+    if (nav.classList.contains("show")) {
+      const bsCollapse = bootstrap.Collapse.getOrCreateInstance(nav);
+      bsCollapse.hide();
+    }
+  });
+});
+
+
+// ---------------------------------------------------------------------
+// CONTACT FORM — Frontend-only neon fake submit
+// ---------------------------------------------------------------------
 const contactForm = document.getElementById("contactForm");
 const formMsg = document.getElementById("formMsg");
 const sendBtn = document.getElementById("sendBtn");
@@ -22,51 +30,63 @@ const sendBtn = document.getElementById("sendBtn");
 contactForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  // Simple validation (HTML required already helps)
+  // Basic validation (HTML required attributes already help)
   const name = contactForm.querySelector('[name="name"]').value.trim();
   const email = contactForm.querySelector('[name="email"]').value.trim();
   const subject = contactForm.querySelector('[name="subject"]').value.trim();
   const message = contactForm.querySelector('[name="message"]').value.trim();
 
+  // Reset message state
   formMsg.classList.remove("neo-msg--ok", "neo-msg--err");
 
+  // Validation error
   if (!name || !email || !subject || !message) {
     formMsg.classList.add("neo-msg--err");
-    formMsg.textContent = "Oups — remplis tous les champs avant d’envoyer.";
+    formMsg.textContent = "Oops — please fill in all fields before sending.";
     return;
   }
 
-  // Demo “sending” state
+  // Simulated “sending” state
   sendBtn.disabled = true;
-  sendBtn.querySelector("span:last-child").textContent = "Envoi…";
+  sendBtn.querySelector("span:last-child").textContent = "Sending…";
   formMsg.textContent = "";
 
   setTimeout(() => {
+    // Success message (demo only)
     formMsg.classList.add("neo-msg--ok");
-    formMsg.textContent = "Message envoyé (démo). Quand tu seras prêt, on branche Formspree / Netlify / backend.";
+    formMsg.textContent =
+      "Message sent (demo). When ready, plug in Formspree / Netlify / a backend.";
 
     contactForm.reset();
     sendBtn.disabled = false;
-    sendBtn.querySelector("span:last-child").textContent = "Envoyer";
+    sendBtn.querySelector("span:last-child").textContent = "Send";
   }, 650);
 });
 
+
+// ---------------------------------------------------------------------
+// Bootstrap mobile nav safety close (DOMContentLoaded)
+// ---------------------------------------------------------------------
 document.addEventListener("DOMContentLoaded", () => {
   const navMain = document.getElementById("navMain");
   if (!navMain) return;
 
-  // Bootstrap doit exister pour que collapse marche
+  // Bootstrap must exist for Collapse to work
   if (!window.bootstrap?.Collapse) return;
 
-  const bsCollapse = bootstrap.Collapse.getOrCreateInstance(navMain, { toggle: false });
+  const bsCollapse = bootstrap.Collapse.getOrCreateInstance(navMain, {
+    toggle: false
+  });
 
-  // Ferme au clic sur un lien (sur mobile)
+  // Close navbar when clicking a link (mobile only)
   navMain.querySelectorAll("a.nav-link").forEach(link => {
     link.addEventListener("click", () => {
-      if (window.getComputedStyle(document.querySelector(".navbar-toggler")).display !== "none") {
+      const togglerVisible =
+        window.getComputedStyle(document.querySelector(".navbar-toggler")).display !== "none";
+
+      if (togglerVisible) {
         bsCollapse.hide();
       }
     });
   });
 });
-
