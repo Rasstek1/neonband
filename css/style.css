@@ -40,7 +40,7 @@
 
   /* Hero images */
   --hero-bg: url("../assets/img/hero.jpg");
-  --skull-img: url("../assets/img/skull.png");
+  --logo-img: url("../assets/img/NeonParadise_1.webp");
 
   /* Hero sizing */
   --hero-min-h: 100svh;
@@ -50,9 +50,9 @@
   /* Desktop offsets */
   --desktop-content-top: 100px;
 
-  /* Skull */
-  --skull-size: clamp(280px, 32vh, 520px);
-  --skull-top: clamp(18px, 6vh, 90px);
+  /* Logo */
+  --logo-size: clamp(480px, 42vh, 520px);
+  --logo-top: clamp(18px, 6vh, 90px);
 
   /* Title */
   --title-size: clamp(2.5rem, 6vw, 5.5rem);
@@ -69,7 +69,7 @@
   /* Background mask */
   --bg-mask-stop: 70%;
 
-  /* Skull-Halo */
+  /* Logo-Halo */
 
 --halo-a: rgba(0, 0, 0, 0.75);
 --halo-b: rgba(0, 0, 0, 0.45);
@@ -550,17 +550,17 @@ header[id] {
 
 
 
-/* Skull decor */
-.retro-skull {
+/* Logo decor */
+.retro-logo {
   position: absolute;
   left: 50%;
-  top: var(--skull-top);
+  top: var(--logo-top);
   transform: translateX(-50%);
 
-  width: var(--skull-size);
-  height: var(--skull-size);
+  width: var(--logo-size);
+  height: var(--logo-size);
 
-  background: var(--skull-img) center/contain no-repeat;
+  background: var(--logo-img) center/contain no-repeat;
   z-index: 5;
   pointer-events: none;
 }
@@ -742,15 +742,15 @@ header[id] {
    5.5 HERO EFFECTS
 ----------------------------------------- */
 
-/* Skull halo */
-.retro-skull{
+/* Logo halo */
+.retro-logo{
   position: absolute;
   left: 50%;
-  top: var(--skull-top);
+  top: var(--logo-top);
   transform: translateX(-50%);
-  width: var(--skull-size);
-  height: var(--skull-size);
-  background: var(--skull-img) center/contain no-repeat;
+  width: var(--logo-size);
+  height: var(--logo-size);
+  background: var(--logo-img) center/contain no-repeat;
   z-index: 5;
   pointer-events: none;
 
@@ -853,6 +853,33 @@ header[id] {
   --bs-btn-hover-bg: rgba(255, 43, 214, 0.15);
   --bs-btn-hover-border-color: rgba(255, 43, 214, 0.8);
   backdrop-filter: blur(6px);
+}
+
+/* ------------------------------------------------------------------
+   TIP JAR BUTTON
+------------------------------------------------------------------ */
+.btn-tipjar{
+  border-color: rgba(255, 224, 102, 0.55);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 224, 102, 0.18),
+    rgba(255, 43, 214, 0.12)
+  );
+  box-shadow:
+    0 0 12px rgba(255, 224, 102, 0.25),
+    0 0 22px rgba(255, 43, 214, 0.15);
+}
+
+.btn-tipjar:hover{
+  border-color: rgba(255, 224, 102, 0.9);
+  box-shadow:
+    0 0 18px rgba(255, 224, 102, 0.35),
+    0 0 30px rgba(255, 43, 214, 0.25);
+}
+
+/* Icon spacing */
+.btn-tipjar i{
+  margin-right: 6px;
 }
 
 
@@ -1186,7 +1213,7 @@ footer {
 /* Tablet and down */
 @media (max-width: 991.98px) {
   :root {
-    --skull-size: clamp(220px, 26vh, 340px);
+    --logo-size: clamp(220px, 26vh, 340px);
     --desktop-content-top: clamp(140px, 18vh, 260px);
     --title-bottom: clamp(2.2rem, 5vh, 3.6rem);
   }
@@ -1201,10 +1228,10 @@ footer {
 /* Mobile */
 @media (max-width: 575.98px) {
   :root {
-    --skull-size: 240px;
-    --skull-top: 50px;
+    --logo-size: 360px;
+    --logo-top: 100px;
 
-    --mobile-content-top: clamp(240px, 40vh, 420px);
+    --mobile-content-top: clamp(220px, 38vh, 400px);
 
     --title-size: 2rem;
     --title-bottom: 2.2rem;
@@ -1214,10 +1241,10 @@ footer {
     --refl-gap: 25px;
   }
 
-  .retro-skull {
-    width: var(--skull-size);
-    height: var(--skull-size);
-    top: var(--skull-top);
+  .retro-logo {
+    width: var(--logo-size);
+    height: var(--logo-size);
+    top: var(--logo-top);
   }
 
   .hero-content {
@@ -1225,7 +1252,7 @@ footer {
     }
 
   .hero-below-title {
-    transform: translateY(-2px);
+    transform: translateY(90px);
   }
 
   .hero-actions {
@@ -1255,7 +1282,7 @@ footer {
 
   /* Quick tuning knobs */
   .hero{
-    --skull-y: 50px;   /* + = skull lower */
+    --logo-y: 50px;   /* + = logo lower */
     --title-y: 40px;  /* - = title higher */
     --below-y: 80px;   /* + = text+buttons lower */
   }
@@ -1274,12 +1301,12 @@ footer {
     padding-top: 10px;
   }
 
-  /* Skull: smaller + lower */
-  .retro-skull{
+  /* Logo: smaller + lower */
+  .retro-logo{
     position: relative;
     left: auto;
     top: 0 !important;
-    transform: translateY(var(--skull-y)) !important;
+    transform: translateY(var(--logo-y)) !important;
 
     width: clamp(72px, 14vw, 120px);
     height: clamp(72px, 14vw, 120px);
