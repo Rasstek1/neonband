@@ -1229,7 +1229,7 @@ footer {
 @media (max-width: 575.98px) {
   :root {
     --logo-size: 360px;
-    --logo-top: 100px;
+    --logo-top: 40px;
 
     --mobile-content-top: clamp(220px, 38vh, 400px);
 
