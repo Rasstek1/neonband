@@ -1252,7 +1252,7 @@ footer {
     }
 
   .hero-below-title {
-    transform: translateY(90px);
+    transform: translateY(30px);
   }
 
   .hero-actions {
@@ -1282,9 +1282,9 @@ footer {
 
   /* Quick tuning knobs */
   .hero{
-    --logo-y: 50px;   /* + = logo lower */
+    --logo-y: 60px;   /* + = logo lower */
     --title-y: 40px;  /* - = title higher */
-    --below-y: 80px;   /* + = text+buttons lower */
+    --below-y: 60px;   /* + = text+buttons lower */
   }
 
   /* DEBUG (optional) */
@@ -1308,8 +1308,8 @@ footer {
     top: 0 !important;
     transform: translateY(var(--logo-y)) !important;
 
-    width: clamp(72px, 14vw, 120px);
-    height: clamp(72px, 14vw, 120px);
+    width: clamp(72px, 18vw, 160px);
+    height: clamp(72px, 18vw, 160px);
 
     margin: 0;
     z-index: 5;
@@ -1349,7 +1349,7 @@ footer {
     flex-wrap: wrap;
     gap: 8px;
 
-    margin-top: 10px !important;
+    margin-top: 0px !important;
     transform: none !important;
   }
 
