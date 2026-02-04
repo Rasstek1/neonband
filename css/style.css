@@ -1274,6 +1274,10 @@ footer {
   .hero-below-title .mt-4.text-muted-neo.small {
     margin-top: 2.2rem !important;
   }
+    .hero::after{
+    display: none;
+    animation: none;
+  }
 }
 
 /* =====================================================================
