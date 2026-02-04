@@ -1284,7 +1284,7 @@ footer {
   .hero{
     --logo-y: 60px;   /* + = logo lower */
     --title-y: 40px;  /* - = title higher */
-    --below-y: 60px;   /* + = text+buttons lower */
+    --below-y: 40px;   /* + = text+buttons lower */
   }
 
   /* DEBUG (optional) */
